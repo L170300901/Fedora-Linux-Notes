@@ -1,0 +1,150 @@
+200p
+1. 프로그램 설치 : root
+
+    1) RPM( RedHat PackageManager )
+
+    2) YUM, DNF  명령어 
+
+    3) tar.xz(소스파일 배포) ,gz
+
+ 
+
+<RPM( RedHat Package Manager )>
+
+www.oracle.com
+
+jdk-8u241-linux-x64.rpm
+jdk-8u241-linux-i3(5)86.rpm  ==>32
+ 
+
+패키지 설치
+
+rpm -ihv  패키지명              패키지 설치
+
+패키지 삭제
+rpm -e 패키지명
+
+       h                               설치과정을 '#'로 표시
+
+       v                               설치 과정 확인
+
+ 
+
+설치된 패키지 조회
+
+rpm -qa                            설치된 모든 패키지 조회
+
+
+
+
+rpm -ihv jdk8u241-linux-x64.rpm  자바 설치
+
+ --> rpm -ihv jdk  (tap키 누르기 자동 완성)
+-->  java -version   버전 확인
+
+
+
+#### alternatives 명령어 : 설치 되어 있는 jdk 중에 선택
+
+
+alternatives --config java
+
+
+<파이프, 필터>
+
+파이프 : 2개의 명령어 연결
+
+ls -l /etc | more   ==> ls -l 결과를 1페이지씩 보여줌
+
+ps -ef | grep jdk  ==> 실행중인 프로세스 중에서 jdk 검색
+
+필터
+
+rpm -qa
+
+grep : 패턴 검색
+
+예) jdk가 들어 있는 패키지 검색
+
+grep <패턴>
+
+rpm -qa | grep jdk
+
+
+ 
+
+<프로세스, 서비스>
+
+1) 프로세스 : 프로그램이 실행되고 있는 상태
+
+
+프로세스종류
+
+포그라운드 프로세스 : 사용자와 시스템과 상호작용하는 프로세스
+
+백그라운드 프로세스 : 실행되지만, 화면나타지않고 뒤에서 실행되는 프로세스
+
+gedit &
+
+프로세스번호 : 활성화된 프로세스를 구분하기 위한 번호
+
+ps -ef  (프로세스번호 조회)
+
+kill -9 프로세스 번호
+kill ->강제 종료
+
+ps -ef | grep firefox
+grep  와일드카드랑 같다. 두개의 명령어 결합 
+
+맨 앞줄에 자기 파이어폭스 번호 : 2917 나옴
+
+250p
+2) 서비스와 소켓
+
+서비스 : 항상 가동중인 서버 프로세스(데몬)
+
+웹 서비스(웹서버)  : 아파치, 톰캣(was) , IIS
+
+소켓    : 필요할 때만 작동하는 서버프로세스
+
+ 서버 : 서비스를 제공해 주는 컴퓨터  또는 프로그램 - 리눅스에 설치
+ 클라이언트 : 서비스를 요청후 제공 받은 컴퓨터 - 윈도우에
+
+네트웍연결
+
+
+3) 서비스, 소켓 : 
+
+실행, 종료, 재시작
+
+systemctl      start/stop/restart     서비스이름
+
+상태정보
+
+systemctl      status        서비스명
+
+
+<원격 접속 : telnet> 
+
+-- 리눅스에 설치
+
+1) dnf -y install telnet-server
+
+2) dnf -y install firewall-config
+
+systemctl start telnet.socket
+
+firewall-config
+
+아이피 확인 : ifconfig
+
+<암호화된 원격 프로그램 : sshd>
+
+1. 구동
+systemctl start sshd
+
+2. 아이피 확인
+
+3. 윈도우에 putty 설치
+k
+ 

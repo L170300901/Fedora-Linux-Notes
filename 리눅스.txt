@@ -1,0 +1,358 @@
+# 프롬프트 구조 
+[seoulit@lacalhost~]$ <---프롬프트
+
+seoulit : 현재 터미널 창에 접속되어 있는 사용자명
+~ : 현재 접속자가 위치해 있는 디렉터리
+/home/사용자명 ==> 홈디렉터리
+Ex)/home/seoulit <-- seoulit의 홈디렉터리
+   /home/test <-- test의 홈디렉터리
+		***디렉터리 --- 리녹스에서 '파일'의 의미
+
+# 명령어 구조(176p)
+명령어 (한칸 무조건 띄어야됨)-옵션(띄우고) 디랙터리/파일명 
+
+# 명령어
+ls ==> 디렉터리 내에 있는 파일이나 디렉터리를 화면에 출력
+ls -l (약자 : ll) ==> 자세하게 화면에 출력
+ls -a ==> 숨김파일 포함해서 출력
+ls -al ==> 숨김파일 포함해서 자세하게 출력
+	**파일이름 앞에 점(.)붙어 있으면 숨겨진 파일
+ls -l /usr/bin ==> /usr/bin 의 디렉터리에 있는 디렉터리나 파일을 자세하게 출력
+    (다른사용자)
+
+윈도우 vs 리녹스
+
+윈도우 --- 파일명.확장자 (aaa.txt / aaa.hwp / …)
+
+리녹스 ---- 앞에 - 붙어있으면  폴더
+                앞에 d 붙어있으면 파일(디렉터리)
+		  앞에 l 붙어있는거 -- 링크걸린 파일(?) (바탕화면의 한글바로가기, ...)
+
+# 와일드 카드
+     * : 여러문자
+     ? : 한문자
+	 ls -l /usr/bin/a* ==> /usr/bin 에 있는 디렉./파일 중에서 "a"로 시작하는 디렉./파일표시
+	 ls -l /usr/bin/*c ==> /usr/bin 에 있는 디렉./파일 중에서 "c"로 끝나는 디렉./파일표시
+	 ls -l /usr/bin/*b* ==> /usr/bin 에 있는 디렉./파일 중에서 "b"가 포함되어 있는 디렉./파일표시
+	
+
+rw- rw- r--     <--권한(허가권)
+ r : read 읽을권한
+ w : write 쓰거나 수정할권한
+ x : execute 실행할권한
+	 rw- --- 읽거나 쓸 수 있음 (실행X)
+	 rwx --- 읽고 쓰고 실행할 수 있음
+
+첫번째 rw : 파일을 만든사람--- 만들고 읽고 삭제 수정
+두번째 rw : 그룹이름 ---  
+세번째 r : 일반 사용자
+		
+	 drwxr-xr-x.   3  seoulit  seoulit  4096  4월    7  16:07  .pki
+
+# 디렉토리
+	1 최상위  디렉토리 : /
+		*디렉토리 시작전에 /로 무조건 시작
+	2 부모 디렉토리 : ..
+	3 - 홈 디렉토리 => 일반 사용자가 맨처음 로그인 했을 때 위치
+	  ex) /home/seoulit , /home/test, …
+		*** pwd(print working directory): 현재 접속하고 있는 디렉터리 경로를 표시
+		     ---->현재 위치해 있는 디렉터리 확인(절대경로표시)
+
+
+#
+ 절대경로 : 최상위 디렉토리(/)부터 시작해서 목표 디렉터리까지로 가는 경로를 전부 기술
+	 cd /usr/bin
+ 상대경로 : 현재 자신이 있는 위치를 기준으로 이동
+	cd ../../usr/bin
+
+		** /bin : 주요 명령어이 있는 디렉터리
+		   /dev : 장치파일들이 있는 디렉터리
+		   /etc : 관리자용 파일과 명령어들이 있는 디렉터리
+		   /home : 일반 사용자의 홈 디렉터리
+			 /home/seoulit, /home/test, …
+		   /lib : 시스템 운영이나 프로그램 구동에 필요한 라이브러리가 있는 디렉터리
+		   /usr: 프로그램이나 패키지들을 설치할 때 포함하는 파일들이 있는 디렉터리
+		   /usr/local : 프로그램이나 패키지들을 설치할 때 포함하는 파일들이 있는 디렉터리
+		   /usr/src : 프로그램의 소스 파일들이 있는 디렉터리
+		   /var : 가변 자료들을 저장하는 디렉터리
+
+
+
+
+#디렉토리 생성
+ mkdir 디렉토리명
+
+ mkdir a => 현재디렉토리에서 a를 생성 ==>상대경로
+  ----->현재 디렉토리의 하위에 만든다는 의미
+ mkdir /home/seoulit/a ==> 절대경로
+	**정상으로 만들어졌는지 확인---> ls -l
+
+/home/seoulit/a/b
+ mkdir a/b ==>상대경로
+  --->현재위치 바로 하위에 만들때
+ mkdir /home/seoulit/a/b ==>절대경로
+
+ ls -lR : 하위의 전체 디렉토리를 표시
+	 ls -lR a ==> a밑에 있는거 싹다 보여줌
+	
+/home/seoulit/d/e/f
+  mkdir -p d/e/f ==>상위디렉터리 자동생성
+
+
+# 디렉터리 이동
+ cd : 디렉터리 이동하기 change directory
+
+ cd /usr/bin ==> 절대경로
+ cd ../ ../ usr/bin ==> 상대경로
+
+
+
+
+
+	a디렉터리로 이동
+	상대==> cd /home/seoulit/a
+	절대==> cd ../d
+
+
+ touch a.txt ==> 빈파일 만들기
+
+
+#피일복사
+ cp 원본파일명 복사할파일명
+
+	 cp a.txt a1.txt  ==> 현재 디렉토리에 있는 a.txt 를 a1.txt라는 이름으로 복사
+
+	 cp a.txt a ==> 현재 디렉토리에 있는 a.txt를 a디렉토리 안에 파일명 그대로 복사
+
+	 cp a.txt a/a2.txt ==>  현재 디렉토리에 있는 a.txt를 a디렉토리 안의 a2.txt파일로 복사
+
+
+#파일이동/ 파일이름바꾸기
+ mv 워본파일명 바꿀파일명 ==> 파일이름변경
+	ex]  mv a1.txt a2.txt
+
+ mv 원본파일명 디렉토리/파일명 ==> 파일이동
+
+	 mv a2.txt d => 현재 디렉토리에 있는 a2.txt를 d디렉토리로 이름은 그대로 이동
+
+	 mv a.txt d/aa.txt => 현재 디렉토리에 있는 a.txt를 d디렉토리로 이름을 aa.txt로 바꿔서 이동
+
+	 ***a1.txt, a2.txt, a3.txt 를 한꺼번에 a/b로 복사 ==> 와일드카드 이용
+		ex] cp a?.txt a/b
+
+
+#파일삭제
+ rm 파일명
+	ex]  rm a.txt
+
+삭제할때는 조심!!
+ rm -i ==> 진짜 삭제할건지 물어봄
+	 y 라 하면 삭제
+	
+ rm -r ==> 하위 디렉토리 전체 삭제
+
+#파일읽기
+ cat 파일명
+
+ cat /etc/passwd => 사용자 정보 파일
+
+ head : 상위 10줄
+ tail : 마지막 10줄
+
+
+
+
+#사용자
+관리자 : 전체적인 환경설정, 사용자 관리, 프로그램 설치  (디렉토리: /root)
+일반 사용자 :  (디렉토리: /home/사용자명)
+
+/etc/passwd ==> 사용자 정보
+/etc/shadow ==> 비밀번호
+/etc/group ==> 그룹정보
+/home/사용자명 ==> 홈 디렉터리
+/etc/skel ==> 기본 환경설정 파일들이 있는 위치
+
+# 사용자 추가
+ useradd 사용자명 
+	ex] useradd mango ==> 사용자 이름이 mango 그룹명 mango
+
+
+#비밀번호 변경
+ passwd 사용자명
+	ex] passwd mango
+
+ exit ==> 이전 사용자로 전환
+
+
+**[표준 입출력]
+
+ - 키보드 : 표준입력
+ - 파일 : 입출력
+ - 콘솔 : 키보드, 모니터(표준출력), 프린터
+ - 소켓 : 네트웍으로 연결된 원격 컴퓨터에 데이터를송수신 하는 수단
+
+
+ **** 리다이렉션( redirection ) : 표준 입출력의 방향을 바꿔준다., 결과를 파일에 저장
+
+
+# 사용자 관리 ==> 관리자의 역할
+1 사용자 추가
+	useradd 사용자명
+2 그룹 지정하여 사용자 추가
+	useradd -g 그룹명 사용자명
+		ex] useradd -g seoulit apple  ==> 사용자명 apple으로 그룹(기존에있는) seoulit에 추가
+	
+	
+	*** 사용자 정보 파일 : /etc/passwd
+	    비밀번호 : /etc/shadow
+	    그룹 : /etc/group
+	    사용자의 홈디렉터리 : /home/사용자명
+	    ls -l /home
+	    groups 사용자명 ==> 사용자 그룹확인
+	
+3 부가그룹 생성여 사용자 추가
+	useradd -G 그룹명 사용자명
+		ex] useradd -G seoulit melon ==> 사용명 melon으로 기본그룹 melon인데 
+		                                              부가그룹 seoulit 추가
+
+4 사용자 수정
+	usermod -g ==> 기본그룹 수정
+	usermod -G ==> 부가그룹 수정
+		ex] usermod -g mango apple ==> 그룹 apple를 그룹 mango로 수정
+
+5 사용자 삭제
+	userdel 사용자명 ==> 사용자 정보만 삭제
+	userdel -r 사용자명 ==> 사용자의 홈디렉토리도 같이 삭제
+	
+6 사용자 전환
+	su 사용자명 ==> 사용자만 전환
+		ex] su mango ==> 사용자 : mango  현재위치 : /home/seoulit
+	
+	su - 사용자명 ==> 전환하고자 하는 사용자의 환경설정들을 다시 읽고 홈 디렉토리로 자동이동
+		ex] su - mango ==> 사용자 : mango  현재위치 : /home/mango
+
+
+# 파일의 소유권
+	chown 소유자명 파일명
+		ex] chown seoulit abc.txt
+	chgrp 그룹명 파일명
+		ex] chgrp seoulit abc.txt
+	
+# 파일의 허가권
+	ex] -rw-r--r--  seoulit   seoulit   abc.txt
+	   ==> 소유자 : seoulit 읽기, 수정, 실행X ----> r-4, w-2 => 7
+	          그룹 : seoulit 읽기, 수정X, 실행X ----> r-4 =>4
+	          기타 : 읽기, 수정X, 실행X ----> r-4 => 4
+	
+	*** r ---> 4
+	    w ---> 2
+	    x ---> 1
+	
+	chmod 숫자값 파일명
+		ex] chmod 765 abc.txt
+			
+						소유자 읽. 쓰. 실 =>7 rwx
+						그룹 읽. 쓰 => 6 rw-
+						기타 읽. 실 => 5 r-x
+
+
+# 실행파일 만들기
+	빈파일에 history 입력 후 저장
+	                  명령어
+	 ex] my.sh <--- history
+
+
+# 실행파일 실행시키기
+	***경로를 정확하게 명시
+	1 절대경로 : /home/seoulit/my.sh
+	2 상대경로 : ./my.sh
+	
+	1)실행 권한 부여
+		chmod 755 my.sh
+					소- 읽.쓰.실
+					그- 읽. 실
+					기- 읽. 실
+	2) 실행
+	    a디렉터리 안에 있는 my.sh 실행
+		절대경로 => /home/seoulit/a/my.sh
+		상대경로 => a/my.sh
+	
+	
+	# 링크파일
+		vi 파일명               파일 만들어서 내용쓰기 ---> Esc키+":" ---> wq  ==>저장
+		gedit 파일명
+	
+	
+	ls -il ==> 아이노드 정보확인
+	
+	1 하드링크 만들기
+		ln 원본파일명 하드링크파일명
+			ex] ln abc.txt hlink
+	2 심볼 링크 ---> 바탕화면의 바로가기 파일 같은거
+		ln -s abc.txt slink
+	
+	
+	# 파일 압축
+	## 압축 : xz > bzip2 > gzip
+	1 xz 압축할 파일명      ex] xz ab.txt
+	2 bzip2 압축할 파일명     ex] bzip2 aa.txt
+	3 gzip 압축할 파일명    ex] gzip bb.txt
+	
+	## 해제
+	1 xz- d 파일명
+	2 bzip2 -d 파일명
+	3 gzip -d 파일명
+	
+	## 파일 묶기
+		tar 옵션 파일명
+		*** "-" 없음
+		
+		옵션
+		   *c : 묶음
+		   *x : 풀기
+		   *f : 파일 지정
+		   *v : 과정 보여줌
+		
+		   J : tar + xz ==> tar.xz
+		   j : tar + bzip2 ==> tar.bz2
+		   z : tar + gzip ==>tar.gz
+		
+		### 묶기
+			tar cvf 묶은파일명 묶을파일명
+				ex] tar cvf my.tar my1.sh my2.sh my3.sh
+				
+		### 해제
+			tar xvf my.tar
+		
+		
+		### 묶으면서 압축하기
+			tar cvfJ my.tar.xz 압축할 파일명
+			tar cvfz my.tar.gz 압축할 파일명
+			tar cvfj my.tar.bz2 압축할 파일명
+			
+		
+		 ### 묶으면서 해제하기
+			tar xvfj my.tar.xz
+			
+			
+		 ### 디렉터리에 해제하기 ==> *** C 옵션이 맨 앞에 위치
+			tar CxvfJ 디렉토리명 파일명
+				ex] tar CxvfJ a my.tar.xz
+				
+		
+# 파일 검색
+	find 경로 옵션 조건 실행
+	*** -name : 파일명 검색
+	     -user : 소유자 검색
+	     -perm : 허가권 검색
+	     -size : 크기 검색
+	ex] find /etc -name "*conf" ==> 파일명이 "conf"로 끝나는 파일 검색
+	     find /home -user seoulit ==> 소유자가 seoulit인 파일 검색
+	     find ~ -perm 755 ==> 허가권 값이 755인 파일 검색
+	     find ~ -name "*sh" -exec  ls -l  {} \; ==> 파일명이 "sh"로 끝나는 파일을 상세히 검색
+								명령어
+							고급사용 
+							
+	
+
+
